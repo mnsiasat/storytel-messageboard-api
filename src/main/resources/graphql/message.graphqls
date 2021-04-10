@@ -1,0 +1,17 @@
+ type Message {
+     id: ID!
+     title: String!
+     text: String!
+     category: String
+     author: Author!
+ }
+
+ extend type Query {
+      findAllMessages: [Message]!
+      countMessages: Long!
+ }
+
+ extend type Mutation {
+      newMessage(title: String!, text: String!, category: String, author: ID!) : Message!
+      deleteMessage(id: ID!) : Boolean
+ }

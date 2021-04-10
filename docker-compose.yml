@@ -1,0 +1,9 @@
+version: "3"
+services:
+  vp-api-database:
+    image: "mongo"
+    ports:
+      - 27017:27017
+    container_name: "messageboard-api-database"
+    volumes:
+      - /home/sinoed/data/db:/data/db
