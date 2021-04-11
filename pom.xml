@@ -9,62 +9,73 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.storytel</groupId>
-    <artifactId>message-board</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>messageboard-api</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <name>message-board</name>
     <description>Backend for storytel-messageboard-webapp</description>
     <properties>
         <java.version>15</java.version>
-        <graphql.springboot.starter.version>5.0.2</graphql.springboot.starter.version>
-        <graphql.java.tools.version>5.2.4</graphql.java.tools.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <graphql.java.kickstart.version>11.0.0</graphql.java.kickstart.version>
     </properties>
+    <repositories>
+        <repository>
+            <id>jcenter</id>
+            <url>https://jcenter.bintray.com/</url>
+        </repository>
+    </repositories>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
-            <groupId>com.graphql-java</groupId>
+            <groupId>com.graphql-java-kickstart</groupId>
             <artifactId>graphql-spring-boot-starter</artifactId>
-            <version>${graphql.springboot.starter.version}</version>
+            <version>${graphql.java.kickstart.version}</version>
         </dependency>
-
         <dependency>
-            <groupId>com.graphql-java</groupId>
-            <artifactId>graphql-java-tools</artifactId>
-            <version>${graphql.java.tools.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.graphql-java</groupId>
+            <groupId>com.graphql-java-kickstart</groupId>
             <artifactId>graphiql-spring-boot-starter</artifactId>
-            <version>${graphql.springboot.starter.version}</version>
+            <version>${graphql.java.kickstart.version}</version>
+            <scope>runtime</scope>
         </dependency>
-
+        <dependency>
+            <groupId>com.graphql-java-kickstart</groupId>
+            <artifactId>graphql-java-tools</artifactId>
+            <version>${graphql.java.kickstart.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.graphql-java-kickstart</groupId>
+            <artifactId>graphql-spring-boot-starter-test</artifactId>
+            <version>${graphql.java.kickstart.version}</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
+            <version>1.0.0.Final</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>

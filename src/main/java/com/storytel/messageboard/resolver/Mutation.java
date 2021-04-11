@@ -1,6 +1,7 @@
 package com.storytel.messageboard.resolver;
 
-import com.coxautodev.graphql.tools.GraphQLMutationResolver;
+import com.storytel.messageboard.model.Message;
+import graphql.kickstart.tools.GraphQLMutationResolver;
 import com.storytel.messageboard.model.Author;
 import com.storytel.messageboard.repository.AuthorRepository;
 import com.storytel.messageboard.repository.MessageRepository;
@@ -22,4 +23,16 @@ public class Mutation implements GraphQLMutationResolver {
         return author;
     }
 
+    public Message newMessage(String title, String text, String category, String authorId) {
+        Message message = Message.builder().title(title).category(category).build();
+        message.setAuthor(Author.builder().id(authorId).build());
+
+        messageRepository.save(message);
+        return message;
+    }
+
+    public boolean deleteMessage(String id) {
+        messageRepository.deleteById(id);
+        return true;
+    }
 }

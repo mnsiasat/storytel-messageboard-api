@@ -8,7 +8,6 @@
 
  extend type Query {
       findAllMessages: [Message]!
-      countMessages: Long!
  }
 
  extend type Mutation {

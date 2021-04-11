@@ -1,6 +1,14 @@
 version: "3"
 services:
-  vp-api-database:
+  messageboard-api:
+    image: messageboard-api
+    ports:
+      - 8080:8080
+    links:
+      - messageboard-database
+    depends_on:
+      - messageboard-database
+  messageboard-database:
     image: "mongo"
     ports:
       - 27017:27017
