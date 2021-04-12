@@ -1,6 +1,8 @@
 package com.storytel.messageboard.resolver;
 
+import com.storytel.messageboard.model.JwtUser;
 import com.storytel.messageboard.model.Message;
+import com.storytel.messageboard.repository.JwtUserRepository;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import com.storytel.messageboard.model.Author;
 import com.storytel.messageboard.repository.AuthorRepository;
@@ -11,10 +13,12 @@ public class Mutation implements GraphQLMutationResolver {
 
     private MessageRepository messageRepository;
     private AuthorRepository authorRepository;
+    private JwtUserRepository userRepository;
 
-    public Mutation(AuthorRepository authorRepository, MessageRepository messageRepository) {
+    public Mutation(AuthorRepository authorRepository, MessageRepository messageRepository, JwtUserRepository userRepository) {
         this.authorRepository = authorRepository;
         this.messageRepository = messageRepository;
+        this.userRepository = userRepository;
     }
 
     public Author newAuthor(String firstName, String lastName) {
@@ -34,5 +38,13 @@ public class Mutation implements GraphQLMutationResolver {
     public boolean deleteMessage(String id) {
         messageRepository.deleteById(id);
         return true;
+    }
+
+    public JwtUser createUser(String name, String password, String email) {
+        final JwtUser newUser=JwtUser.builder().userName(name).password(password).email(email).build();
+        newUser.setUserName(name);
+        newUser.setPassword(password);
+        newUser.setEmail(email);
+        return userRepository.save(newUser);
     }
 }
