@@ -5,10 +5,6 @@ type JwtUser {
     password: String!
 }
 
-extend type Query {
-    getAuthenticationToken(userName:String!):JwtUser
-}
-
 extend type Mutation {
     createUser(userName: String!,email: String!,password: String!): JwtUser
 }

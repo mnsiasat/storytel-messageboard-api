@@ -6,11 +6,11 @@ import com.storytel.messageboard.repository.MessageRepository;
 import com.storytel.messageboard.resolver.MessageResolver;
 import com.storytel.messageboard.resolver.Mutation;
 import com.storytel.messageboard.resolver.Query;
-import com.storytel.messageboard.rest.AuthTokenController;
+import com.storytel.messageboard.rest.LoginController;
 import com.storytel.messageboard.security.JwtAuthenticationEntryPoint;
 import com.storytel.messageboard.security.JwtAuthenticationProvider;
-import com.storytel.messageboard.security.JwtGenerator;
 import com.storytel.messageboard.security.JwtValidator;
+import com.storytel.messageboard.service.LoginService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
@@ -45,14 +45,20 @@ public class MessageBoardConfig {
         return new ProviderManager(Collections.singletonList(authProvider));
     }
 
-    @Bean JwtSecurityConfig jwtSecurityConfig(){
+    @Bean
+    public JwtSecurityConfig jwtSecurityConfig(){
         final JwtAuthenticationEntryPoint authEntryPoint = new JwtAuthenticationEntryPoint();
         final JwtSecurityConfig securityConfig = new JwtSecurityConfig(authenticationManager(), authEntryPoint);
         return securityConfig;
     }
 
     @Bean
-    public AuthTokenController authTokenController(){
-        return new AuthTokenController();
+    public LoginService loginService(JwtUserRepository userRepository){
+        return new LoginService(userRepository);
+    }
+
+    @Bean
+    public LoginController authTokenController(LoginService loginService){
+        return new LoginController(loginService);
     }
 }

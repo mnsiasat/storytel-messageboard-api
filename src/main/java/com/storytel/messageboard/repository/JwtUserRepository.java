@@ -11,4 +11,7 @@ public interface JwtUserRepository extends MongoRepository<JwtUser, String> {
     @Query("{ 'userName' : ?0 }")
     JwtUser findByUserName(String userName);
 
+    @Query("{ 'email' : ?0 }")
+    JwtUser findByEmail(String email);
+
 }

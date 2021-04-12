@@ -3,6 +3,9 @@ package com.storytel.messageboard.security;
 import com.storytel.messageboard.model.JwtAuthenticationToken;
 import com.storytel.messageboard.model.JwtUser;
 import com.storytel.messageboard.model.JwtUserDetails;
+import com.storytel.messageboard.rest.LoginController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
@@ -16,6 +19,7 @@ import java.util.List;
 
 
 public class JwtAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
+    private Logger logger = LoggerFactory.getLogger(JwtAuthenticationProvider.class);
 
     private JwtValidator validator;
 
@@ -30,11 +34,12 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
 
     @Override
     protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) throws AuthenticationException {
-
         JwtAuthenticationToken jwtAuthenticationToken = (JwtAuthenticationToken) usernamePasswordAuthenticationToken;
         String token = jwtAuthenticationToken.getToken();
 
         JwtUser jwtUser = validator.validate(token);
+
+        logger.info(String.format("VALIDATED token: %s retrieved user: %s", token, jwtUser.getUserName()));
 
         if (jwtUser == null) {
             throw new RuntimeException("JWT Token is incorrect");
